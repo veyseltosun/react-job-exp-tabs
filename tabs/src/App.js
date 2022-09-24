@@ -9,11 +9,16 @@ function App() {
   const [jobs, setJobs] = useState([]);
   const [value, setValue] = useState(0);
 
-  useEffect(() => {
-    fetch(url)
-    .then(response => response.json())
-    .then(response => setJobs(response))
+  const fetchData = async () =>{
+    const response = await fetch(url)
+    const newJobs = await response.json()
+    setJobs(newJobs)
     setLoading(false)
+  }
+
+  useEffect(() => {
+    fetchData()
+    
    
   }, [])
   console.log(jobs)
@@ -25,7 +30,7 @@ function App() {
       </section>
     )
   }
-
+ const{company, dates, duties, title} = jobs[value]
   return (
     <section className="section">
       <div className="title">
@@ -41,14 +46,14 @@ function App() {
                key={item.id} 
                onClick={() => setValue(index)} 
                className = {`job-btn ${index === value && "active-btn"}`}
-              ></button>
+              >{item.company}</button>
             )
           })}
 
           </div>
           <article className="job-info">
             <h3>{title}</h3>
-            <h4>{compony}</h4>
+            <h4>{company}</h4>
             <p className="job-date">{dates}</p>
             {duties.map((duty,index) =>{
               return(
@@ -62,6 +67,7 @@ function App() {
 
           </article>
         </div>
+        <button type="button" className="btn">more info</button>
       
     </section>
   );
