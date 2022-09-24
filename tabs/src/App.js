@@ -27,9 +27,31 @@ function App() {
   }
 
   return (
-    <div className="App">
-      Job exp app 
-    </div>
+    <section className="section">
+      <div className="title">
+        <h2>experience</h2>
+        <div className="underline"></div>
+      </div>
+        <div className="jobs-center">
+          <div className="btn-container">
+
+          {jobs.map((item, index) => {
+            return(
+              <button
+               key={item.id} 
+               onClick={() => setValue(index)} 
+               className = {`job-btn ${index === value && "active-btn"}`}
+              ></button>
+            )
+          })}
+
+          </div>
+          <article className="job-info">
+
+          </article>
+        </div>
+      
+    </section>
   );
 }
 
